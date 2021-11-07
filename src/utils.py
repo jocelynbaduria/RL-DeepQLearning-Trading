@@ -6,6 +6,8 @@ import numpy as np
 import pdb
 import plotly.express as px
 import plotly.graph_objects as go
+from pathlib import Path
+import sys, os
 
 from .technical_indicators import (
   indicators_dict,
@@ -52,7 +54,10 @@ def get_stock_data(stock_file):
   return list(df['Adj Close'])
 
 def load_data(path):
-  temp = pd.read_csv(path)
+  path = str(Path(os.path.dirname((os.path.abspath(__file__)))).parent) + "/data/"
+  if os.path.exists(path):
+      print("[Src path]: ", path)
+      temp = pd.read_csv(path)
 
   if "Date" in temp.columns:
       temp.index = temp["Date"]

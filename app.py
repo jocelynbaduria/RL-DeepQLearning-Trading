@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import keras.backend.tensorflow_backend as tb
-tb._SYMBOLIC_SCOPE.value = True
+# import keras.backend.tensorflow_backend as tb
+import tensorflow.compat.v1.keras.backend as tb
+# tb._SYMBOLIC_SCOPE.value = True
+tb.set_session = True
 
 from src.methods import evaluate_model
 from src.agent import RLAgent

@@ -9,7 +9,8 @@ def add_momentum_indicators(high, low, close, volume, n_period = 7, fillna=True)
 	Kaufman's Adaptive Moving Average (KAMA)
 	"""
 	df = pd.DataFrame(index = close.index)
-	df['mom_mfi'] = ta.momentum.MFIIndicator(high, low, close, volume, n_period, fillna = fillna).money_flow_index()
+	# df['mom_mfi'] = ta.momentum.MFIIndicator(high, low, close, volume, n_period, fillna = fillna).money_flow_index()
+	df['mom_mfi'] = ta.volume.MFIIndicator(high, low, close, volume, n_period, fillna = fillna).money_flow_index()
 	df['mom_tsi'] = ta.momentum.TSIIndicator(close, fillna = fillna).tsi()
 	df['mom_kama'] = ta.momentum.kama(close, fillna=fillna)
 	return df
@@ -44,9 +45,10 @@ def add_volatility_indicators(high, low, close, n_period = 7, fillna=True):
 	"""
 	df = pd.DataFrame(index = close.index)
 	df['vol_atr'] = ta.volatility.AverageTrueRange(high, low, close, n_period, fillna).average_true_range()
-	df['vol_kc'] = ta.volatility.KeltnerChannel(high, low, close, n_period, fillna).keltner_channel_central()
-	df['vol_dc_hband'] = ta.volatility.DonchianChannel(close, n_period, fillna = fillna).donchian_channel_hband()
-	df['vol_dc_lband'] = ta.volatility.DonchianChannel(close, n_period, fillna = fillna).donchian_channel_lband()
+	# df['vol_kc'] = ta.volatility.KeltnerChannel(high, low, close, n_period, fillna).keltner_channel_central()
+	df['vol_kc'] = ta.volatility.KeltnerChannel(high, low, close, n_period, fillna).keltner_channel_mband()
+	# df['vol_dc_hband'] = ta.volatility.DonchianChannel(close, n_period, fillna = fillna).donchian_channel_hband()
+	# df['vol_dc_lband'] = ta.volatility.DonchianChannel(close, n_period, fillna = fillna).donchian_channel_lband()
 	return df
 
 def add_volume_indicators(high, low, close, volume, n_period = 7, fillna=True):
